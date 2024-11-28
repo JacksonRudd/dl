@@ -1,4 +1,4 @@
-from IPython.display import Markdown, display
+from IPython.display import Markdown, display, Image
 def printmd(*args):
     display(Markdown(' '.join(args)))
 
@@ -6,7 +6,7 @@ def printmd(*args):
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from typing import List, Tuple, Union
-
+from IPython.display import HTML
 
 class Vector:
     def __init__(self, x: float, y: float):
@@ -123,7 +123,11 @@ class MatplotlibScene(SceneMaker):
         # Create animation
         frames = len(self.animated_vectors[0].start_positions)  # Assume all vectors have the same number of frames
         anim = FuncAnimation(self.fig, self.update_fn, frames=frames, interval=100, blit=True)
-        anim.save(f'video/{name}.gif', writer='imagemagick', fps=5)
+        gif_path = f"video/{name}.gif"
+        anim.save(gif_path, writer='imagemagick', fps=5)
+        plt.close(self.fig)
+        # show the animation in the notebook by getting the gif from the filesyst
+        display(Image(filename=gif_path))
 
 
 class VectorScene():
