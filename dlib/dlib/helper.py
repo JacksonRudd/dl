@@ -139,20 +139,20 @@ class VectorScene():
     def _convert_to_vectors(vector_list: List[Union[List[float], Tuple[float, float]]]) -> List[Vector]:
         return [Vector(v[0], v[1]) for v in vector_list]
 
-    def add_animated_vector(self, deltas: List[Union[List[float], Tuple[float, float]]], color: str = 'b', name: str = 'vector') -> 'AnimatedVectorScene':
+    def add_animated_vector(self, deltas: List[Union[List[float], Tuple[float, float]]], color: str = 'b', name: str = 'vector') -> 'VectorScene':
         start_positions = [[0, 0] for _ in deltas]
         return self.add_animated_vector_at(start_positions, deltas, color, name)
 
-    def add_animated_vector_at(self, start_positions: List[Union[List[float], Tuple[float, float]]], deltas: List[Union[List[float], Tuple[float, float]]], color: str = 'b', name: str = 'vector') -> 'AnimatedVectorScene':
+    def add_animated_vector_at(self, start_positions: List[Union[List[float], Tuple[float, float]]], deltas: List[Union[List[float], Tuple[float, float]]], color: str = 'b', name: str = 'vector') -> 'VectorScene':
         start_positions = self._convert_to_vectors(start_positions)
         deltas = self._convert_to_vectors(deltas)
         self.animated_vectors.append(AnimatedVector(start_positions, deltas, color, name))
         return self
 
-    def add_vector(self, delta: Union[List[float], Tuple[float, float]], color: str = 'w', name: str = 'static_vector') -> 'AnimatedVectorScene':
+    def add_vector(self, delta: Union[List[float], Tuple[float, float]], color: str = 'w', name: str = 'static_vector') -> 'VectorScene':
         return self.add_vector_at([0, 0], delta, color, name)
     
-    def add_vector_at(self, start_position: Union[List[float], Tuple[float, float]], delta: Union[List[float], Tuple[float, float]], color: str = 'w', name: str = 'static_vector') -> 'AnimatedVectorScene':
+    def add_vector_at(self, start_position: Union[List[float], Tuple[float, float]], delta: Union[List[float], Tuple[float, float]], color: str = 'w', name: str = 'static_vector') -> 'VectorScene':
         start_position = Vector(*start_position)
         delta = Vector(*delta)
         self.static_vectors.append(StaticVector(start_position, delta, color, name))
