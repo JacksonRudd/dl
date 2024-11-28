@@ -124,7 +124,8 @@ class MatplotlibScene(SceneMaker):
         frames = len(self.animated_vectors[0].start_positions)  # Assume all vectors have the same number of frames
         anim = FuncAnimation(self.fig, self.update_fn, frames=frames, interval=100, blit=True)
         gif_path = f"video/{name}.gif"
-        anim.save(gif_path, writer='imagemagick', fps=5)
+        from matplotlib.animation import PillowWriter
+        anim.save(gif_path, fps=5)
         plt.close(self.fig)
         # show the animation in the notebook by getting the gif from the filesyst
         display(Image(filename=gif_path))
@@ -169,7 +170,7 @@ class VectorScene():
 
         self.scene_maker.setup(self.animated_vectors, self.static_vectors)
 
-    def animate(self, name: str):
+    def animate(self, name: str='animation'):
         self.setup()
         self.scene_maker.animate(name)
 
